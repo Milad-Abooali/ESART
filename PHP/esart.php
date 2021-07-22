@@ -51,17 +51,66 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active" href="#">File <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="#">File & Folder <span class="sr-only">(current)</span></a>
+            <!--
             <a class="nav-item nav-link" href="#">Database</a>
             <a class="nav-item nav-link" href="#">Content</a>
-            <a class="nav-item nav-link" href="#">Content</a>
+            -->
           </div>
+          <a class="nav-item nav-link" href="#">Help</a>
           <a href="?a=logout"class="btn btn-sm btn-outline-danger">Logout</a>
         </div>
       </nav>
-      <div class="col-md-12">
-        Welcome
+      <div id="engin-file" class="row mt-3">
+        <div class="col-md-6">
+          <h4 class="text-center my-2">File & Folder</h4>
+          <form action="?a=file" method="post" class="form">
+            <div class="form-group">
+              <label for="path" class="form-label">Keyword</label>
+              <input type="text" class="form-control" id="keyword" name="keyword" placeholder="blog_">
+              <small class="alert-secondary p-1 pl-4 ml-2">
+                <input type="checkbox" class="form-check-input" id="k-word" name="k-word">
+                <label class="form-check-label" for="k-word">Word Mucth</label>
+              </small>
+              <small class="alert-secondary p-1 pl-4 ml-2">
+                <input type="checkbox" class="form-check-input" id="k-case" name="k-case">
+                <label class="form-check-label" for="k-case">Case Sensetive</label>
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="path" class="form-label">Start Path</label>
+              <input type="text" class="form-control" id="path" name="path" placeholder="./">
+              <small class="alert-secondary p-1 pl-4 ml-2">
+                <input type="checkbox" class="form-check-input" id="folders" name="folders">
+                <label class="form-check-label" for="folders">Folders</label>
+              </small>
+              <small class="alert-secondary p-1 pl-4 ml-2">
+                <input type="checkbox" class="form-check-input" id="files" name="files">
+                <label class="form-check-label" for="files">Files</label>
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="path" class="form-label">Filename Extension</label>
+              <input type="text" class="form-control" id="path" name="path" placeholder="* for all or .php">
+              <small class="alert-info p-1">Use <strong class="text-danger">!</strong> at start for exception, example: <strong>!.css</strong></small>
+              <small class="alert-info p-1">Seprate by <strong class="text-danger">:</strong> example: <strong>.css : .js</strong></small>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="recursive" name="recursive">
+                <label class="form-check-label" for="recursive">Recursive</label>
+              </div>
 
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Search</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-6">
+          <?php var_dump(scandir('../')); ?>
+        </div>
       </div>
       <?php } else { ?>
       <div class="row justify-content-md-center">
