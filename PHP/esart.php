@@ -39,7 +39,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link href="floating-labels.css" rel="stylesheet">
   </head>
   <body>
     <div class="container">
@@ -64,7 +63,7 @@
       <div id="engin-file" class="row mt-3">
         <div class="col-md-6">
           <h4 class="text-center my-2">File & Folder</h4>
-          <form action="?a=file" method="post" class="form">
+          <form id="file-search" class="form">
             <div class="form-group">
               <label for="path" class="form-label">Keyword</label>
               <input type="text" class="form-control" id="keyword" name="keyword" placeholder="blog_">
@@ -108,7 +107,7 @@
           </form>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 result">
           <?php var_dump(scandir('../')); ?>
         </div>
       </div>
@@ -136,6 +135,18 @@
     </div>
     <script>
     <?php if($_SESSION['Login'] ?? false) { ?>
+
+      /**
+       * Engine File
+       */
+
+      // Submit Search
+      $("body").on("submit","#engin-file form#file-search", function(e) {
+        e.preventDefault();
+        $.post( "?a=file&f=search", function( $( this ).serialize() ) {
+          $( "#engin-file .result" ).html( data );
+        });
+      });
 
     <?php } else { ?>
 
