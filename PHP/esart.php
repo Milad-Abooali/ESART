@@ -1,8 +1,8 @@
 <?php
 
   define('LOGIN',[
-    'username'  =>  'modir',
-    'password'  =>  'modir@1987'
+    'username'  =>  'Damin',
+    'password'  =>  'admin@1987'
   ]);
 
   define('CONFIG',[
@@ -10,6 +10,21 @@
     'password'  =>  'modir@1987'
   ]);
 
+  session_start();
+
+  $act = $_GET['a'] ?? false;
+  if($act)
+    if($act=='login') {
+      $_SESSION['login'] = false;
+      $username = $_POST['username'] ?? null;
+      $password = $_POST['password'] ?? null;
+      If($username == LOGIN['username'] && $password == LOGIN['password'])
+        $_SESSION['login'] = true;
+      header('Location: ' . basename(__FILE__));
+    } elseif ($act=='logout') {
+        $_SESSION['login'] = false;
+        header('Location: ' . basename(__FILE__));
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,47 +42,55 @@
     <link href="floating-labels.css" rel="stylesheet">
   </head>
   <body>
-
-<?php
-  session_start();
-?>
-
-    <? if($_SESSION['Login'] ?? false) { ?>
-
-    <? } else { ?>
-      <form class="form-signin">
-        <div class="text-center mb-4">
-          <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-          <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
-          <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+    <div class="container">
+      <?php if($_SESSION['login'] ?? false) { ?>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ESART <sup>v1.0</sup></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link active" href="#">File <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Database</a>
+            <a class="nav-item nav-link" href="#">Content</a>
+            <a class="nav-item nav-link" href="#">Content</a>
+          </div>
+          <a href="?a=logout"class="btn btn-sm btn-outline-danger">Logout</a>
         </div>
+      </nav>
+      <div class="col-md-12">
+        Welcome
 
-        <div class="form-label-group">
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-          <label for="inputEmail">Email address</label>
+      </div>
+      <?php } else { ?>
+      <div class="row justify-content-md-center">
+        <div class="col-md-3 mt-5">
+          <form action="?a=login" method="post">
+              <h2 class="text-center">Log in</h2>
+              <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Username" name="username" required="required">
+              </div>
+              <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Password" name="password" required="required">
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">Log in</button>
+              </div>
+              <div class="clearfix">
+                  <small class="text-muted float-right">ESART v1.0</smalla>
+              </div>
+          </form>
         </div>
+      </div>
+      <?php } ?>
+    </div>
+    <script>
+    <?php if($_SESSION['Login'] ?? false) { ?>
 
-        <div class="form-label-group">
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-          <label for="inputPassword">Password</label>
-        </div>
+    <?php } else { ?>
 
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
-      </form>
-    <? } ?>
-
-<script>
-<? if($_SESSION['Login'] ?? false) { ?>
-
-<? } else { ?>
-
-<? } ?>
-</script>
+    <?php } ?>
+    </script>
   </body>
 </html>
