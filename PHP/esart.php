@@ -1,11 +1,11 @@
 <?php
 
-  defin('LOGIN',[
+  define('LOGIN',[
     'username'  =>  'modir',
     'password'  =>  'modir@1987'
   ]);
 
-  defin('CONFIG',[
+  define('CONFIG',[
     'username'  =>  'modir',
     'password'  =>  'modir@1987'
   ]);
